@@ -3,17 +3,11 @@
 
 name: Node.js CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
-  
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v2
       - name: npm install and build webpack
@@ -22,9 +16,7 @@ jobs:
           npm run build
   
   test:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-2016]
@@ -36,7 +28,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
     - name: npm install, and test
       run: |
         npm install
